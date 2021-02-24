@@ -3,7 +3,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const webpack = require('webpack')
+// const webpack = require('webpack')
 
 // Определение режима сборки
 const isProd = process.env.NODE_ENV === 'production'
@@ -71,7 +71,7 @@ const jsLoaders = () => {
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     mode: 'development',
-    entry: ['@babel/polyfill', './index.js', 'webpack/hot/only-dev-server'],
+    entry: ['@babel/polyfill', './index.js'],
     output: {
         filename: filename('js'),
         path: path.resolve(__dirname, 'dist')
@@ -85,16 +85,18 @@ module.exports = {
     },
     devtool: isDev ? 'source-map' : false,
     devServer: {
+        // contentBase: './dist',
         port: 3000,
-        hot: isDev
+        hot: isDev,
+        static: true
     },
+    // target: process.env.NODE_ENV === 'development' ? 'web' : 'browserslist',
+    target: 'web',
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: 'index.html',
-
             title: 'Hot Module Replacement',
-
             minify: {
                 removeComments: isProd,
                 collapseWhitespace: isProd
@@ -109,7 +111,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: filename('css')
         }),
-        new webpack.HotModuleReplacementPlugin()
+        // new webpack.HotModuleReplacementPlugin()
     ],
     module: {
         rules: [
