@@ -10,14 +10,14 @@
   overflow-x: auto;
   padding-bottom: 2px;
 
-  .raw {
+  .row {
     display: flex;
     flex-direction: row;
     min-width: 20px;
     height: $row-height;
   }
 
-  .raw-info {
+  .row-info {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,7 +29,7 @@
 
   }
 
-  .raw-data {
+  .row-data {
     display: flex;
   }
 
